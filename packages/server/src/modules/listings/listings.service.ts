@@ -21,7 +21,7 @@ import {
 import { CreateListingDto } from './dto/create-listing.dto';
 import { UpdateListingDto } from './dto/update-listing.dto';
 import { hasActualChanges } from '../../utils/value-comparison.util';
-import { LogsService } from '../logs/logs.service';
+//import { LogsService } from '../logs/logs.service';
 
 @Injectable()
 export class ListingsService {
@@ -36,7 +36,7 @@ export class ListingsService {
     private readonly pendingChangesRepository: Repository<ListingPendingChanges>,
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
-    private readonly logsService: LogsService,
+    //private readonly logsService: LogsService,
   ) {}
 
   async create(
@@ -79,7 +79,7 @@ export class ListingsService {
     }
 
     // Log the listing creation
-    await this.logsService.logListingAction(
+    /*await this.logsService.logListingAction(
       userId,
       savedListing.id,
       'created',
@@ -90,7 +90,7 @@ export class ListingsService {
         model: carDetail.model,
         year: carDetail.year,
       },
-    );
+    );*/
 
     return this.findOne(savedListing.id);
   }

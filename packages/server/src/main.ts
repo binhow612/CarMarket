@@ -9,7 +9,7 @@ import { ChatService } from './modules/chat/chat.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { LoggingExceptionFilter } from './common/filters/logging-exception.filter';
-import { LogsService } from './modules/logs/logs.service';
+//import { LogsService } from './modules/logs/logs.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -37,11 +37,11 @@ async function bootstrap() {
   );
 
   // Global logging interceptor
-  const logsService = app.get(LogsService);
-  app.useGlobalInterceptors(new LoggingInterceptor(logsService));
+  //const logsService = app.get(LogsService);
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   // Global exception filter
-  app.useGlobalFilters(new LoggingExceptionFilter(logsService));
+  app.useGlobalFilters(new LoggingExceptionFilter());
 
   // Global prefix
   app.setGlobalPrefix('api');

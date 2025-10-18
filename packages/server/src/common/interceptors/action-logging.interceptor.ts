@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { LogsService } from '../../modules/logs/logs.service';
+//import { LogsService } from '../../modules/logs/logs.service';
 import { LogLevel, LogCategory } from '../../entities/activity-log.entity';
 import {
   LOG_ACTION_KEY,
@@ -17,7 +17,7 @@ import {
 @Injectable()
 export class ActionLoggingInterceptor implements NestInterceptor {
   constructor(
-    private readonly logsService: LogsService,
+    //private readonly logsService: LogsService,
     private readonly reflector: Reflector,
   ) {}
 
@@ -91,23 +91,23 @@ export class ActionLoggingInterceptor implements NestInterceptor {
       const message = options.message || `${request.method} ${request.path}`;
       const description = options.description || `User action: ${message}`;
 
-      await this.logsService.createLog({
-        level: LogLevel.INFO,
-        category: options.category || LogCategory.USER_ACTION,
-        message,
-        description,
-        metadata: {
-          method: request.method,
-          url: request.originalUrl,
-          path: request.path,
-          query: request.query,
-          body: this.sanitizeBody(request.body),
-          userRole: user?.role,
-        },
-        ipAddress,
-        userAgent,
-        userId: user?.id,
-      });
+      // await this.logsService.createLog({
+      //   level: LogLevel.INFO,
+      //   category: options.category || LogCategory.USER_ACTION,
+      //   message,
+      //   description,
+      //   metadata: {
+      //     method: request.method,
+      //     url: request.originalUrl,
+      //     path: request.path,
+      //     query: request.query,
+      //     body: this.sanitizeBody(request.body),
+      //     userRole: user?.role,
+      //   },
+      //   ipAddress,
+      //   userAgent,
+      //   userId: user?.id,
+      // });
     } catch (error) {
       // Silently fail to avoid recursive logging
     }
@@ -125,7 +125,7 @@ export class ActionLoggingInterceptor implements NestInterceptor {
       const message = `Success: ${options.message || request.method} ${request.path}`;
       const description = `Action completed successfully in ${duration}ms`;
 
-      await this.logsService.createLog({
+      /*await this.logsService.createLog({
         level: LogLevel.INFO,
         category: options.category || LogCategory.USER_ACTION,
         message,
@@ -141,7 +141,7 @@ export class ActionLoggingInterceptor implements NestInterceptor {
           responseData: this.sanitizeResponseData(data),
         },
         userId: user?.id,
-      });
+      });*/
     } catch (error) {
       // Silently fail to avoid recursive logging
     }
@@ -159,7 +159,7 @@ export class ActionLoggingInterceptor implements NestInterceptor {
       const message = `Error: ${options.message || request.method} ${request.path}`;
       const description = `Action failed: ${error.message} after ${duration}ms`;
 
-      await this.logsService.createLog({
+      /*await this.logsService.createLog({
         level: LogLevel.ERROR,
         category: options.category || LogCategory.USER_ACTION,
         message,
@@ -178,7 +178,7 @@ export class ActionLoggingInterceptor implements NestInterceptor {
           },
         },
         userId: user?.id,
-      });
+      });*/
     } catch (error) {
       // Silently fail to avoid recursive logging
     }

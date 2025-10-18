@@ -7,14 +7,14 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { LogsService } from '../../modules/logs/logs.service';
+//import { LogsService } from '../../modules/logs/logs.service';
 import { LogLevel, LogCategory } from '../../entities/activity-log.entity';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   private readonly logger = new Logger(LoggingInterceptor.name);
 
-  constructor(private readonly logsService: LogsService) {}
+  //constructor(private readonly logsService: LogsService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
@@ -195,7 +195,7 @@ export class LoggingInterceptor implements NestInterceptor {
         requestInfo.path,
       );
 
-      await this.logsService.createLog({
+      /*await this.logsService.createLog({
         level: LogLevel.INFO,
         category,
         message: `API Request: ${requestInfo.method} ${requestInfo.path}`,
@@ -213,7 +213,7 @@ export class LoggingInterceptor implements NestInterceptor {
         ipAddress: requestInfo.ipAddress,
         userAgent: requestInfo.userAgent,
         userId: requestInfo.userId,
-      });
+      });*/
     } catch (error) {
       this.logger.error('Failed to log request:', error);
     }
@@ -265,14 +265,14 @@ export class LoggingInterceptor implements NestInterceptor {
         metadata['responseData'] = this.sanitizeResponseData(data);
       }
 
-      await this.logsService.createLog({
+      /*await this.logsService.createLog({
         level,
         category,
         message,
         description,
         metadata,
         userId: requestInfo.userId,
-      });
+      });*/
     } catch (error) {
       this.logger.error('Failed to log response:', error);
     }

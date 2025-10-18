@@ -8,7 +8,7 @@ import { CarImage } from '../../entities/car-image.entity';
 import { User } from '../../entities/user.entity';
 import { ListingPendingChanges } from '../../entities/listing-pending-changes.entity';
 import { Transaction } from '../../entities/transaction.entity';
-import { LogsModule } from '../logs/logs.module';
+//import { LogsModule } from '../logs/logs.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { LogsModule } from '../logs/logs.module';
       ListingPendingChanges,
       Transaction,
     ]),
-    LogsModule,
+    //LogsModule,
   ],
   controllers: [ListingsController],
   providers: [ListingsService],

@@ -7,14 +7,14 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { LogsService } from '../../modules/logs/logs.service';
+//import { LogsService } from '../../modules/logs/logs.service';
 import { LogLevel, LogCategory } from '../../entities/activity-log.entity';
 
 @Catch()
 export class LoggingExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(LoggingExceptionFilter.name);
 
-  constructor(private readonly logsService: LogsService) {}
+  //constructor(private readonly logsService: LogsService) {}
 
   async catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -108,16 +108,16 @@ export class LoggingExceptionFilter implements ExceptionFilter {
         };
       }
 
-      await this.logsService.createLog({
-        level,
-        category,
-        message: `Exception: ${status} - ${message}`,
-        description: `Exception occurred in ${request.method} ${request.path}: ${message}`,
-        metadata,
-        ipAddress,
-        userAgent,
-        userId: user?.id,
-      });
+      // await this.logsService.createLog({
+      //   level,
+      //   category,
+      //   message: `Exception: ${status} - ${message}`,
+      //   description: `Exception occurred in ${request.method} ${request.path}: ${message}`,
+      //   metadata,
+      //   ipAddress,
+      //   userAgent,
+      //   userId: user?.id,
+      // });
     } catch (error) {
       this.logger.error('Failed to log exception:', error);
     }
